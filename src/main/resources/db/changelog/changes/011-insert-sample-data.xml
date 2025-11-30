@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="0011-insert-sample-data" author="developer">
+        <!-- Insert Categories -->
+        <insert tableName="category">
+            <column name="name" value="Coffee"/>
+            <column name="description" value="Hot and cold coffee beverages"/>
+            <column name="is_active" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Tea"/>
+            <column name="description" value="Tea beverages"/>
+            <column name="is_active" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="category">
+            <column name="name" value="Snacks"/>
+            <column name="description" value="Snacks and sandwiches"/>
+            <column name="is_active" valueBoolean="true"/>
+        </insert>
+
+        <!-- Insert Coffee Shops -->
+        <insert tableName="coffee_shop">
+            <column name="name" value="Coffee shop 1"/>
+            <column name="address" value="111 1st Street, Hanoi"/>
+            <column name="contact_number" value="+84111222333"/>
+            <column name="latitude" value="40.7589"/>
+            <column name="longitude" value="-73.9851"/>
+            <column name="number_of_queues" value="2"/>
+            <column name="max_queue_size" value="30"/>
+            <column name="opening_time" value="06:00:00"/>
+            <column name="closing_time" value="22:00:00"/>
+            <column name="average_processing_time_minutes" value="5"/>
+            <column name="is_active" value="true"/>
+        </insert>
+
+        <insert tableName="coffee_shop">
+            <column name="name" value="Coffee shop 2"/>
+            <column name="address" value="123 2nd Street, Hanoi"/>
+            <column name="contact_number" value="+84123456789"/>
+            <column name="latitude" value="40.7081"/>
+            <column name="longitude" value="-73.9571"/>
+            <column name="number_of_queues" value="1"/>
+            <column name="max_queue_size" value="20"/>
+            <column name="opening_time" value="07:00:00"/>
+            <column name="closing_time" value="20:00:00"/>
+            <column name="average_processing_time_minutes" value="6"/>
+            <column name="is_active" value="true"/>
+        </insert>
+
+        <insert tableName="coffee_shop">
+            <column name="name" value="Coffee shop 3"/>
+            <column name="address" value="222 3rd Street, Hanoi"/>
+            <column name="contact_number" value="+84987654321"/>
+            <column name="latitude" value="40.7282"/>
+            <column name="longitude" value="-73.8648"/>
+            <column name="number_of_queues" value="3"/>
+            <column name="max_queue_size" value="50"/>
+            <column name="opening_time" value="05:30:00"/>
+            <column name="closing_time" value="23:00:00"/>
+            <column name="average_processing_time_minutes" value="4"/>
+            <column name="is_active" value="true"/>
+        </insert>
+
+        <!-- Insert Menu Items -->
+        <insert tableName="menu_item">
+            <column name="coffee_shop_id" value="1"/>
+            <column name="name" value="Espresso"/>
+            <column name="description" value="Espresso"/>
+            <column name="price" value="3.50"/>
+            <column name="category_id" valueNumeric="2"/>
+            <column name="is_available" value="true"/>
+            <column name="preparation_time_minutes" value="3"/>
+        </insert>
+
+        <insert tableName="menu_item">
+            <column name="coffee_shop_id" value="1"/>
+            <column name="name" value="Cappuccino"/>
+            <column name="description" value="Cappuccino"/>
+            <column name="price" value="4.50"/>
+            <column name="category_id" valueNumeric="2"/>
+            <column name="is_available" value="true"/>
+            <column name="preparation_time_minutes" value="4"/>
+        </insert>
+
+        <insert tableName="menu_item">
+            <column name="coffee_shop_id" value="1"/>
+            <column name="name" value="Iced Americano"/>
+            <column name="description" value="Americano"/>
+            <column name="price" value="4.00"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="is_available" value="true"/>
+            <column name="preparation_time_minutes" value="3"/>
+        </insert>
+
+        <insert tableName="menu_item">
+            <column name="coffee_shop_id" value="1"/>
+            <column name="name" value="Mocha"/>
+            <column name="description" value="Mocha"/>
+            <column name="price" value="5.25"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="is_available" value="true"/>
+            <column name="preparation_time_minutes" value="5"/>
+        </insert>
+
+        <insert tableName="menu_item">
+            <column name="coffee_shop_id" value="2"/>
+            <column name="name" value="Cold Brew"/>
+            <column name="description" value="Cold Brew"/>
+            <column name="price" value="4.50"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="is_available" value="true"/>
+            <column name="preparation_time_minutes" value="2"/>
+        </insert>
+
+        <insert tableName="menu_item">
+            <column name="coffee_shop_id" value="2"/>
+            <column name="name" value="Vanilla Latte"/>
+            <column name="description" value="Vanilla Latte"/>
+            <column name="price" value="5.00"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="is_available" value="true"/>
+            <column name="preparation_time_minutes" value="5"/>
+        </insert>
+
+        <insert tableName="menu_item">
+            <column name="coffee_shop_id" value="3"/>
+            <column name="name" value="Espresso"/>
+            <column name="description" value="Espresso"/>
+            <column name="price" value="4.50"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="is_available" value="true"/>
+            <column name="preparation_time_minutes" value="3"/>
+        </insert>
+
+        <insert tableName="menu_item">
+            <column name="coffee_shop_id" value="3"/>
+            <column name="name" value="Caramel Macchiato"/>
+            <column name="description" value="Caramel Macchiato"/>
+            <column name="price" value="5.50"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="is_available" value="true"/>
+            <column name="preparation_time_minutes" value="5"/>
+        </insert>
+
+<!--        Insert queue data-->
+        <insert tableName="queue">
+            <column name="coffee_shop_id" value="1"/>
+            <column name="queue_number" value="1"/>
+            <column name="queue_name" value="Queue 1"/>
+            <column name="max_size" value="30"/>
+            <column name="current_size" value="0"/>
+            <column name="is_active" value="true"/>
+        </insert>
+
+        <insert tableName="queue">
+            <column name="coffee_shop_id" value="1"/>
+            <column name="queue_number" value="2"/>
+            <column name="queue_name" value="Queue 2"/>
+            <column name="max_size" value="30"/>
+            <column name="current_size" value="0"/>
+            <column name="is_active" value="true"/>
+        </insert>
+
+        <insert tableName="queue">
+            <column name="coffee_shop_id" value="2"/>
+            <column name="queue_number" value="1"/>
+            <column name="queue_name" value="Queue 1"/>
+            <column name="max_size" value="20"/>
+            <column name="current_size" value="0"/>
+            <column name="is_active" value="true"/>
+        </insert>
+
+        <insert tableName="queue">
+            <column name="coffee_shop_id" value="3"/>
+            <column name="queue_number" value="1"/>
+            <column name="queue_name" value="Queue 1"/>
+            <column name="max_size" value="50"/>
+            <column name="current_size" value="0"/>
+            <column name="is_active" value="true"/>
+        </insert>
+
+        <insert tableName="queue">
+            <column name="coffee_shop_id" value="3"/>
+            <column name="queue_number" value="2"/>
+            <column name="queue_name" value="Queue 1 2"/>
+            <column name="max_size" value="50"/>
+            <column name="current_size" value="0"/>
+            <column name="is_active" value="true"/>
+        </insert>
+
+        <insert tableName="queue">
+            <column name="coffee_shop_id" value="3"/>
+            <column name="queue_number" value="3"/>
+            <column name="queue_name" value="Queue 3"/>
+            <column name="max_size" value="50"/>
+            <column name="current_size" value="0"/>
+            <column name="is_active" value="true"/>
+        </insert>
+
+        <!-- Reset sequences to avoid duplicate key errors -->
+        <sql>
+            SELECT setval('category_id_seq', (SELECT MAX(id) FROM category));
+            SELECT setval('coffee_shop_id_seq', (SELECT MAX(id) FROM coffee_shop));
+            SELECT setval('menu_item_id_seq', (SELECT MAX(id) FROM menu_item));
+            SELECT setval('queue_id_seq', (SELECT MAX(id) FROM queue));
+        </sql>
+
+    </changeSet>
+
+</databaseChangeLog>
+

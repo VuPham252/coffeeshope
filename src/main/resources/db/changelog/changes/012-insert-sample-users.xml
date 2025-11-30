@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="0012-insert-sample-users" author="developer">
+        <!-- Admin User -->
+        <insert tableName="user">
+            <column name="id" valueNumeric="1"/>
+            <column name="mobile_number" value="+84333444555"/>
+            <column name="name" value="Admin User"/>
+            <column name="role" value="ADMIN"/>
+            <column name="email" value="admin@coffeeapp.com"/>
+            <!-- BCrypt hash for password: "admin123" -->
+            <column name="password" value="$2a$10$dxN/caHGA3HxIYCp1jrb.uaiirkosqB1ItFiJay.mu8V/.IlW7GLu"/>
+            <column name="created_at" valueDate="2025-11-30T10:00:00"/>
+            <column name="updated_at" valueDate="2024-11-30T10:00:00"/>
+        </insert>
+
+        <!-- Customer User -->
+        <insert tableName="user">
+            <column name="id" valueNumeric="2"/>
+            <column name="mobile_number" value="+84444555666"/>
+            <column name="name" value="Test User"/>
+            <column name="role" value="CUSTOMER"/>
+            <column name="email" value="test@email.com"/>
+            <!-- BCrypt hash for password: "customer123" -->
+            <column name="password" value="$2a$10$e5faIcLAf95V.Y7w/R9XgeUqecfA3LZnvIXbQA7IeqiOjBU2SLMcq"/>
+            <column name="created_at" valueDate="2025-11-30T10:00:00"/>
+            <column name="updated_at" valueDate="2025-11-30T10:00:00"/>
+        </insert>
+
+        <insert tableName="customer_profile">
+            <column name="id" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="2"/>
+            <column name="total_orders" valueNumeric="0"/>
+            <column name="loyalty_score" valueNumeric="0"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="1"/>
+            <column name="customer_profile_id" valueNumeric="1"/>
+            <column name="street" value="test street"/>
+            <column name="city" value="test city"/>
+            <column name="state" value="test state"/>
+            <column name="zip_code" value="123123"/>
+            <column name="country" value="test country"/>
+            <column name="latitude" value="40.7081"/>
+            <column name="longitude" value="-73.9571"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="2"/>
+            <column name="customer_profile_id" valueNumeric="1"/>
+            <column name="street" value="test street 2"/>
+            <column name="city" value="test city 2"/>
+            <column name="state" value="test state 2"/>
+            <column name="zip_code" value="123124"/>
+            <column name="country" value="test country 2"/>
+            <column name="latitude" value="40.7589"/>
+            <column name="longitude" value="-73.9851"/>
+        </insert>
+
+        <sql>
+            SELECT setval('user_id_seq', (SELECT MAX(id) FROM "user"));
+            SELECT setval('customer_profile_id_seq', (SELECT MAX(id) FROM customer_profile));
+            SELECT setval('address_id_seq', (SELECT MAX(id) FROM address));
+        </sql>
+
+    </changeSet>
+
+</databaseChangeLog>
+

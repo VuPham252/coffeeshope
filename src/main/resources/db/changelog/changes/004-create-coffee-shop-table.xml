@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="004-create-coffee-shop-table" author="developer">
+        <createTable tableName="coffee_shop">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact_number" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="latitude" type="DECIMAL(10, 8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="longitude" type="DECIMAL(11, 8)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number_of_queues" type="INT" defaultValueNumeric="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_queue_size" type="INT" defaultValueNumeric="50">
+                <constraints nullable="false"/>
+            </column>
+            <column name="opening_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="closing_time" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="average_processing_time_minutes" type="INT" defaultValueNumeric="5">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
+

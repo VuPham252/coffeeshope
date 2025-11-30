@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="013-fix-sequences" author="developer">
+        <comment>Fix PostgreSQL sequences to avoid duplicate key errors</comment>
+
+        <!-- Reset all sequences to match the current max IDs in their respective tables -->
+        <sql>
+            -- User table sequence
+            SELECT setval('user_id_seq', COALESCE((SELECT MAX(id) FROM "user"), 1), true);
+
+            -- Customer profile sequence
+            SELECT setval('customer_profile_id_seq', COALESCE((SELECT MAX(id) FROM customer_profile), 1), true);
+
+            -- Address sequence
+            SELECT setval('address_id_seq', COALESCE((SELECT MAX(id) FROM address), 1), true);
+
+            -- Category sequence
+            SELECT setval('category_id_seq', COALESCE((SELECT MAX(id) FROM category), 1), true);
+
+            -- Coffee shop sequence
+            SELECT setval('coffee_shop_id_seq', COALESCE((SELECT MAX(id) FROM coffee_shop), 1), true);
+
+            -- Menu item sequence
+            SELECT setval('menu_item_id_seq', COALESCE((SELECT MAX(id) FROM menu_item), 1), true);
+
+            -- Queue sequence
+            SELECT setval('queue_id_seq', COALESCE((SELECT MAX(id) FROM queue), 1), true);
+
+            -- Order sequence
+            SELECT setval('order_id_seq', COALESCE((SELECT MAX(id) FROM "order"), 1), true);
+
+            -- Order item sequence
+            SELECT setval('order_item_id_seq', COALESCE((SELECT MAX(id) FROM order_item), 1), true);
+
+            -- Queue entry sequence
+            SELECT setval('queue_entry_id_seq', COALESCE((SELECT MAX(id) FROM queue_entry), 1), true);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
+
