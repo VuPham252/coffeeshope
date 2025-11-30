@@ -1,0 +1,478 @@
+{
+	"info": {
+		"_postman_id": "8fa04a4d-501e-45c1-8137-e024ab858e22",
+		"name": "101Digital",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15630081"
+	},
+	"item": [
+		{
+			"name": "register customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"mobileNumber\": \"+84999999999\",\r\n  \"name\": \"user 2\",\r\n  \"email\": \"user2@email.com\",\r\n  \"password\": \"pass123\",\r\n  \"street\": \"test street 3\",\r\n  \"city\": \"test city 3\",\r\n  \"state\": \"test state 3\",\r\n  \"zipCode\": \"321321\",\r\n  \"country\": \"test country 3\",\r\n  \"latitude\": 39.80,\r\n  \"longitude\": -89.65\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/customer/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register customer Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"mobileNumber\": \"+84999999999\",\r\n  \"name\": \"user 2\",\r\n  \"email\": \"user2@email.com\",\r\n  \"password\": \"pass123\",\r\n  \"street\": \"test street 3\",\r\n  \"city\": \"test city 3\",\r\n  \"state\": \"test state 3\",\r\n  \"zipCode\": \"321321\",\r\n  \"country\": \"test country 3\",\r\n  \"latitude\": 39.80,\r\n  \"longitude\": -89.65\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "Coffeeshop-api-env.eba-7pfphpwk.ap-southeast-1.elasticbeanstalk.com/api/customer/auth/register",
+					"host": [
+						"Coffeeshop-api-env",
+						"eba-7pfphpwk",
+						"ap-southeast-1",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"api",
+						"customer",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "customer login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mobileNumber\": \"+84444555666\",\n    \"password\": \"customer123\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://54.255.1.233:8080/api/customer/auth/login",
+					"protocol": "http",
+					"host": [
+						"54",
+						"255",
+						"1",
+						"233"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customer",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all shop",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/shops",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all shop Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.255.1.233:8080/api/shops",
+					"protocol": "http",
+					"host": [
+						"54",
+						"255",
+						"1",
+						"233"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all shop Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "Coffeeshop-api-env.eba-7pfphpwk.ap-southeast-1.elasticbeanstalk.com/api/shops",
+					"host": [
+						"Coffeeshop-api-env",
+						"eba-7pfphpwk",
+						"ap-southeast-1",
+						"elasticbeanstalk",
+						"com"
+					],
+					"path": [
+						"api",
+						"shops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get nearest shop",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/shops/nearest?latitude=40.7589&longitude=-73.9851&limit=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shops",
+						"nearest"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "40.7589"
+						},
+						{
+							"key": "longitude",
+							"value": "-73.9851"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get shop menu",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/shops/1/menu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shops",
+						"1",
+						"menu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get shop queue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/shops/2/queues",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"shops",
+						"2",
+						"queues"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwibW9iaWxlTnVtYmVyIjoiKzEtNTU1LTEwMDEiLCJpYXQiOjE3NjQ0NzgzNDMsImV4cCI6MTc2NDU2NDc0M30.wZ9M5dgKSsoxjHtvGNtO5XCGZ0qvAFrt_gK534S7jB8v_7UPPs4uHWSoMXMvBqzK3QljudPQQTudQju4ufVtWg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer YOUR_TOKEN_HERE"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"coffeeShopId\": 2,\n    \"items\": [\n      {\n        \"menuItemId\": 5,\n        \"quantity\": 1,\n        \"specialInstructions\": \"Extra hot\"\n      },\n      {\n        \"menuItemId\": 6,\n        \"quantity\": 1\n      }\n    ],\n    \"notes\": \"Please call when ready\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get my order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwibW9iaWxlTnVtYmVyIjoiKzEtNTU1LTEwMDEiLCJpYXQiOjE3NjQ0NzgzNDMsImV4cCI6MTc2NDU2NDc0M30.wZ9M5dgKSsoxjHtvGNtO5XCGZ0qvAFrt_gK534S7jB8v_7UPPs4uHWSoMXMvBqzK3QljudPQQTudQju4ufVtWg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer YOUR_TOKEN_HERE"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get my order in shop",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwibW9iaWxlTnVtYmVyIjoiKzEtNTU1LTEwMDEiLCJpYXQiOjE3NjQ0NzgzNDMsImV4cCI6MTc2NDU2NDc0M30.wZ9M5dgKSsoxjHtvGNtO5XCGZ0qvAFrt_gK534S7jB8v_7UPPs4uHWSoMXMvBqzK3QljudPQQTudQju4ufVtWg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/shop/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"shop",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get queue position",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwibW9iaWxlTnVtYmVyIjoiKzEtNTU1LTEwMDEiLCJpYXQiOjE3NjQ0NzgzNDMsImV4cCI6MTc2NDU2NDc0M30.wZ9M5dgKSsoxjHtvGNtO5XCGZ0qvAFrt_gK534S7jB8v_7UPPs4uHWSoMXMvBqzK3QljudPQQTudQju4ufVtWg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer YOUR_TOKEN_HERE"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/4/queue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"4",
+						"queue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "serve customer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwibW9iaWxlTnVtYmVyIjoiKzEtNTU1LTEwMDEiLCJpYXQiOjE3NjQ0NzgzNDMsImV4cCI6MTc2NDU2NDc0M30.wZ9M5dgKSsoxjHtvGNtO5XCGZ0qvAFrt_gK534S7jB8v_7UPPs4uHWSoMXMvBqzK3QljudPQQTudQju4ufVtWg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/3/serve",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"3",
+						"serve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwibW9iaWxlTnVtYmVyIjoiKzEtNTU1LTEwMDEiLCJpYXQiOjE3NjQ0NzgzNDMsImV4cCI6MTc2NDU2NDc0M30.wZ9M5dgKSsoxjHtvGNtO5XCGZ0qvAFrt_gK534S7jB8v_7UPPs4uHWSoMXMvBqzK3QljudPQQTudQju4ufVtWg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer YOUR_TOKEN_HERE"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/4/cancel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"4",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
