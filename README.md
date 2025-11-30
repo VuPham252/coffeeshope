@@ -21,7 +21,7 @@ Testing:
 - API testing: Postman
 
 APIs and business flows:
-Domain: Coffeeshop-api-env.eba-7pfphpwk.ap-southeast-1.elasticbeanstalk.com
+Domain: Coffeeshop-api-env.eba-7pfphpwk.ap-southeast-1.elasticbeanstalk.com or http://54.255.1.233:8080
 - Customer register:  POST /api/customer/auth/register
 - Customer login:  POST /api/customer/auth/login
 - Find nearest shop: GET /api/shops/nearest?latitude={latitude}&longitude={longitude}
