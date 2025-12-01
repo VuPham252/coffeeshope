@@ -10,12 +10,14 @@ import com.example.processorder.domain.common.exception.BusinessException;
 import com.example.processorder.domain.auth.repository.UserRepository;
 import com.example.processorder.domain.auth.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AdminAuthService {
 
     private final UserRepository userRepository;
@@ -27,6 +29,7 @@ public class AdminAuthService {
     @Transactional
     public AuthResponse registerAdmin(RegisterRequest request) {
         if (userRepository.existsByMobileNumber(request.getMobileNumber())) {
+            log.warn("Admin registration failed - Mobile number already exists: {}", request.getMobileNumber());
             throw new BusinessException("Mobile number already registered");
         }
 
@@ -39,6 +42,7 @@ public class AdminAuthService {
                 .build();
 
         admin = userRepository.save(admin);
+        log.info("Admin user created successfully with ID: {}, mobile: {}", admin.getId(), admin.getMobileNumber());
 
         String token = tokenProvider.generateToken(admin.getId(), admin.getMobileNumber());
 
@@ -56,13 +60,18 @@ public class AdminAuthService {
 
         User admin = userRepository.findByMobileNumber(request.getMobileNumber())
                 .filter(u -> u.getRole() == UserRole.ADMIN)
-                .orElseThrow(() -> new AuthenticationException("Invalid credentials"));
+                .orElseThrow(() -> {
+                    log.warn("Admin login failed - User not found: {}", request.getMobileNumber());
+                    return new AuthenticationException("Invalid credentials");
+                });
 
         if (!passwordEncoder.matches(request.getPassword(), admin.getPassword())) {
+            log.warn("Admin login failed - Invalid password for mobile: {}", request.getMobileNumber());
             throw new AuthenticationException("Invalid credentials");
         }
 
         String token = tokenProvider.generateToken(admin.getId(), admin.getMobileNumber());
+        log.info("Admin login successful - User ID: {}, mobile: {}", admin.getId(), admin.getMobileNumber());
 
         return AuthResponse.builder()
                 .token(token)

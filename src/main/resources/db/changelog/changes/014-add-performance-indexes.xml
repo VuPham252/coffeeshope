@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="014-add-performance-indexes" author="developer">
+
+        <createIndex indexName="idx_user_mobile_number" tableName="user">
+            <column name="mobile_number"/>
+        </createIndex>
+
+        <createIndex indexName="idx_order_user_id" tableName="order">
+            <column name="user_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_order_coffee_shop_id" tableName="order">
+            <column name="coffee_shop_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_order_number" tableName="order">
+            <column name="order_number"/>
+        </createIndex>
+
+        <createIndex indexName="idx_menu_item_coffee_shop_id" tableName="menu_item">
+            <column name="coffee_shop_id"/>
+        </createIndex>
+
+        <createIndex indexName="idx_menu_item_shop_available" tableName="menu_item">
+            <column name="coffee_shop_id"/>
+            <column name="is_available"/>
+        </createIndex>
+
+        <createIndex indexName="idx_queue_shop_active" tableName="queue">
+            <column name="coffee_shop_id"/>
+            <column name="is_active"/>
+        </createIndex>
+
+        <createIndex indexName="idx_queue_entry_queue_active_position" tableName="queue_entry">
+            <column name="queue_id"/>
+            <column name="is_active"/>
+            <column name="position"/>
+        </createIndex>
+
+        <createIndex indexName="idx_queue_entry_order_active" tableName="queue_entry">
+            <column name="order_id"/>
+            <column name="is_active"/>
+        </createIndex>
+
+        <createIndex indexName="idx_coffee_shop_location" tableName="coffee_shop">
+            <column name="latitude"/>
+            <column name="longitude"/>
+        </createIndex>
+
+    </changeSet>
+
+</databaseChangeLog>
+

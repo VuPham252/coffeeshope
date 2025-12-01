@@ -9,6 +9,7 @@ import com.example.processorder.domain.common.enums.OrderStatus;
 import com.example.processorder.domain.common.exception.BusinessException;
 import com.example.processorder.domain.common.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -56,6 +58,7 @@ public class OrderService {
         Order order = createOrder(user, shop, queue, request.getNotes(), totalAmount, orderItems);
 
         int position = assignQueueEntry(queue, order, shop);
+        log.info("Queue entry assigned - Position: {}, Queue ID: {}", position, queue.getId());
 
         updateCustomerProfile(profile);
 
@@ -71,6 +74,8 @@ public class OrderService {
         order.setStatus(OrderStatus.CANCELLED);
         order.setCancelledAt(LocalDateTime.now());
         orderRepository.save(order);
+
+        log.info("Order cancelled successfully - Order ID: {}, Order Number: {}", orderId, order.getOrderNumber());
 
         User user = getCustomer(customerId);
         CoffeeShop shop = getCoffeeShop(order.getCoffeeShop().getId());
@@ -97,6 +102,9 @@ public class OrderService {
                 .orElseThrow(() -> new ResourceNotFoundException("Queue not found"));
 
         Long totalInQueue = queueEntryRepository.countActiveEntriesInQueue(queue.getId());
+
+        log.debug("Queue position retrieved - Order: {}, Position: {}/{}",
+                  order.getOrderNumber(), queueEntry.getPosition(), totalInQueue);
 
         return QueuePositionResponse.builder()
                 .orderId(order.getId())
@@ -154,6 +162,9 @@ public class OrderService {
         queueService.handleQueueOnOrderCompletion(order, orderId);
 
         incrementCustomerLoyalty(order.getUser().getId());
+
+        log.info("Order completed successfully - Order ID: {}, Order Number: {}, Customer: {}",
+                 orderId, order.getOrderNumber(), order.getUser().getName());
 
         User user = getCustomer(order.getUser().getId());
         CoffeeShop shop = getCoffeeShop(order.getCoffeeShop().getId());

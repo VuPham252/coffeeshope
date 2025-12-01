@@ -9,6 +9,7 @@ import com.example.processorder.domain.common.exception.ResourceNotFoundExceptio
 import com.example.processorder.domain.order.repository.QueueEntryRepository;
 import com.example.processorder.domain.order.repository.QueueRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class QueueService {
     private final QueueEntryRepository queueEntryRepository;
     private final QueueRepository queueRepository;
@@ -60,6 +62,7 @@ public class QueueService {
     public void repositionQueue(Long queueId, int removedPosition) {
         List<QueueEntry> entries = queueEntryRepository.findByQueueIdAndIsActiveOrderByPositionAsc(queueId, true);
 
+        int repositionedCount = 0;
         for (QueueEntry entry : entries) {
             if (entry.getPosition() > removedPosition) {
                 entry.setPosition(entry.getPosition() - 1);
@@ -68,10 +71,12 @@ public class QueueService {
                 if (shop != null) {
                     entry.setEstimatedWaitTimeMinutes(entry.getPosition() * shop.getAverageProcessingTimeMinutes());
                 }
+                repositionedCount++;
             }
         }
 
         queueEntryRepository.saveAll(entries);
+        log.info("Queue repositioned - Queue ID: {}, Repositioned entries: {}", queueId, repositionedCount);
     }
 
     public Queue getQueueById(Long queueId) {

@@ -18,6 +18,7 @@
     <include file="db/changelog/changes/011-insert-sample-data.xml"/>
     <include file="db/changelog/changes/012-insert-sample-users.xml"/>
     <include file="db/changelog/changes/013-fix-sequences.xml"/>
+    <include file="db/changelog/changes/014-add-performance-indexes.xml"/>
 
 </databaseChangeLog>
 

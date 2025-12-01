@@ -13,12 +13,14 @@ import com.example.processorder.domain.auth.repository.CustomerProfileRepository
 import com.example.processorder.domain.auth.repository.UserRepository;
 import com.example.processorder.domain.auth.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CustomerAuthService {
 
     private final UserRepository userRepository;
@@ -29,10 +31,12 @@ public class CustomerAuthService {
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         if (userRepository.existsByMobileNumber(request.getMobileNumber())) {
+            log.warn("Registration failed - Mobile number already exists: {}", request.getMobileNumber());
             throw new BusinessException("Mobile number already registered");
         }
 
         if (request.getEmail() != null && userRepository.existsByEmail(request.getEmail())) {
+            log.warn("Registration failed - Email already exists: {}", request.getEmail());
             throw new BusinessException("Email already registered");
         }
 
@@ -44,6 +48,7 @@ public class CustomerAuthService {
                 .role(UserRole.CUSTOMER)
                 .build();
         user = userRepository.save(user);
+        log.info("User created successfully with ID: {}, mobile: {}", user.getId(), user.getMobileNumber());
 
         CustomerProfile customerProfile = CustomerProfile.builder()
                 .user(user)
@@ -63,8 +68,10 @@ public class CustomerAuthService {
 
         customerProfile.addAddress(address);
         customerProfile = customerProfileRepository.save(customerProfile);
+        log.info("Customer profile created with ID: {} for user: {}", customerProfile.getId(), user.getId());
 
         String token = tokenProvider.generateToken(user.getId(), user.getMobileNumber());
+        log.info("JWT token generated for customer ID: {}", user.getId());
 
         return AuthResponse.builder()
                 .token(token)
@@ -81,12 +88,19 @@ public class CustomerAuthService {
 
         User user = userRepository.findByMobileNumber(request.getMobileNumber())
                 .filter(u -> u.getRole() == UserRole.CUSTOMER)
-                .orElseThrow(() -> new AuthenticationException("Invalid credentials"));
+                .orElseThrow(() -> {
+                    log.warn("Login failed - User not found: {}", request.getMobileNumber());
+                    return new AuthenticationException("Invalid credentials");
+                });
 
         CustomerProfile profile = customerProfileRepository.findByUserId(user.getId())
-                .orElseThrow(() -> new AuthenticationException("Profile not found"));
+                .orElseThrow(() -> {
+                    log.error("Profile not found for user ID: {}", user.getId());
+                    return new AuthenticationException("Profile not found");
+                });
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            log.warn("Login failed - Invalid password for mobile: {}", request.getMobileNumber());
             throw new AuthenticationException("Invalid credentials");
         }
 
