@@ -6,6 +6,11 @@ import com.example.processorder.domain.order.dto.MenuItemResponse;
 import com.example.processorder.domain.order.dto.QueueResponse;
 import com.example.processorder.domain.order.service.CoffeeShopService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +20,25 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/shops")
+@Slf4j
 public class CoffeeShopController {
 
     private final CoffeeShopService coffeeShopService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<CoffeeShopResponse>>> getAllShops() {
-        List<CoffeeShopResponse> shops = coffeeShopService.getAllActiveShops();
+    public ResponseEntity<ApiResponse<Page<CoffeeShopResponse>>> getAllShops(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "ASC") String sortDirection) {
+
+        Sort sort = sortDirection.equalsIgnoreCase("DESC")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<CoffeeShopResponse> shops = coffeeShopService.getAllActiveShops(pageable);
+
         return ResponseEntity.ok(ApiResponse.success(shops));
     }
 

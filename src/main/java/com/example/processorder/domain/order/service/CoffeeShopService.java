@@ -11,6 +11,9 @@ import com.example.processorder.domain.order.repository.CoffeeShopRepository;
 import com.example.processorder.domain.order.repository.MenuItemRepository;
 import com.example.processorder.domain.order.repository.QueueRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CoffeeShopService {
 
     private final CoffeeShopRepository coffeeShopRepository;
@@ -31,6 +35,18 @@ public class CoffeeShopService {
         return coffeeShopRepository.findByIsActive(true).stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
+    }
+
+    public Page<CoffeeShopResponse> getAllActiveShops(Pageable pageable) {
+        log.debug("Fetching active coffee shops with pagination - Page: {}, Size: {}, Sort: {}",
+                 pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort());
+        Page<CoffeeShop> shopsPage = coffeeShopRepository.findByIsActive(true, pageable);
+        Page<CoffeeShopResponse> responsePage = shopsPage.map(this::mapToResponse);
+        log.info("Found {} active coffee shops (Page {}/{})",
+                 responsePage.getNumberOfElements(),
+                 responsePage.getNumber() + 1,
+                 responsePage.getTotalPages());
+        return responsePage;
     }
 
     public CoffeeShopResponse getShopById(Long id) {
